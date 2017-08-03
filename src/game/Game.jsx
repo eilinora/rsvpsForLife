@@ -3,6 +3,7 @@ import Websocket from 'react-websocket';
 import Flex from 'meetup-web-components/lib/layout/Flex';
 import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
 
+import GameBoard from './GameBoard';
 import RSVPViewer from './RSVPViewer';
 
 const STREAM_URL = 'ws://stream.meetup.com/2/rsvps';
@@ -36,9 +37,7 @@ export default class Game extends Component {
 
 				<Flex>
 					<FlexItem>
-						<div>
-							the actual game...
-						</div>
+						<GameBoard rsvsp={this.state.rsvps} />
 					</FlexItem>
 					<FlexItem shrink>
 						<RSVPViewer rsvps={this.state.rsvps} />
