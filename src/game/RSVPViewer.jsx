@@ -13,9 +13,6 @@ const RSVP = (rsvp, index) => {
 		<Chunk key={index}>
 			<Flex>
 				<FlexItem>
-					<AvatarMember member={rsvp.member} />
-				</FlexItem>
-				<FlexItem>
 					<p>{rsvp.member.member_name}</p>
 				</FlexItem>
 			</Flex>
