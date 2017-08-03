@@ -3,13 +3,8 @@ import Websocket from 'react-websocket';
 import Flex from 'meetup-web-components/lib/layout/Flex';
 import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
 
-import {
-  Song,
-  Sequencer,
-  Sampler
-} from 'react-music';
-
 import GameBoard from './GameBoard';
+import Soundtrack from './Soundtrack';
 import RSVPViewer from './RSVPViewer';
 
 const STREAM_URL = 'ws://stream.meetup.com/2/rsvps';
@@ -25,7 +20,9 @@ export default class Game extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rsvps: []
+			rsvps: [],
+			rsvpRate: 80,
+			soundtrack: false
 		};
 		this.handleData = this.handleData.bind(this);
 	}
@@ -40,15 +37,7 @@ export default class Game extends Component {
     return (
     	<div>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
-				<Song tempo={90} playing={true}>
-				  <Sequencer resolution={16} bars={1}>
-					<Sampler
-					   sample="/samples/cowbell.wav"
-					   steps={[0, 4, 8, 12]}
-					/>
-				  </Sequencer>
-				</Song>
-
+				<Soundtrack tempo={this.state.rsvpRate} playing={this.state.soundtrack}/>
 				<Flex>
 					<FlexItem>
 						<GameBoard rsvsp={this.state.rsvps} />
