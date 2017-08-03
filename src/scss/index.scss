@@ -1,1 +1,53 @@
 @import 'mwc';
+
+.board {
+	position: relative;
+	float:left;
+	height:100%;
+}
+
+.rsvp-views {
+	float:right;
+  width: 150px;
+  padding-right: 15px;
+}
+
+.text--white {
+	padding-left:4px;
+	color: $C_white;
+}
+
+.piece {
+	position: absolute;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	&.going {
+		background-color: $C_green;
+	}
+	&.not-going {
+		background-color: $C_red;
+	}
+	&.waitlist {
+		background-color: $C_lightGray;
+	}
+}
+
+.response {
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	&.going {
+		background-color: $C_green;
+	}
+	&.not-going {
+		background-color: $C_red;
+	}
+	&.waitlist {
+		background-color: $C_lightGray;
+	}
+	svg {
+		fill: white;
+		color: white;
+	}
+}

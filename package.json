@@ -4,15 +4,19 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "meetup-web-components": "1.1.1103",
     "node-sass": "4.5.3",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.0.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-game-kit": "0.0.2",
+    "react-mixin": "^2.0.2",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
-    "react-websocket": "^1.1.7"
+    "react-websocket": "^1.1.7",
+    "save": "^2.3.1",
+    "swarm-icons": "1.3.129",
+    "swarm-sasstools": "1.7.62"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AvatarMember from 'meetup-web-components/lib/media/AvatarMember';
+import cx from 'classnames';
 import Chunk from 'meetup-web-components/lib/layout/Chunk';
 import Flex from 'meetup-web-components/lib/layout/Flex';
 import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
@@ -9,15 +9,23 @@ const RSVP = (rsvp, index) => {
 	if (!rsvp.member) {
 		return false
 	};
-
+	const classNames = cx({
+		['response going'] : rsvp.response === 'yes',
+		['response not-going'] : rsvp.response === 'no',
+		['response waitlist'] : rsvp.response === 'waitlist'
+	});
 	return (
 		<Chunk key={index}>
 			<Flex>
-				<FlexItem>
-					<AvatarMember member={rsvp.member} />
+				<FlexItem shrink>
+					<div className="avatar avatar--person" role="img" style={{ backgroundImage: `url(${rsvp.member.photo})`}}></div>
 				</FlexItem>
 				<FlexItem>
-					<p>{rsvp.member.member_name}</p>
+					<p className='text--small'><strong>{rsvp.member.member_name}</strong></p>
+					<Flex>
+						<FlexItem shrink><div className={classNames}><span className='text--white'>✔</span></div></FlexItem>
+						<FlexItem><p>{rsvp.response}</p></FlexItem>
+					</Flex>
 				</FlexItem>
 			</Flex>
 		</Chunk>
@@ -31,7 +39,7 @@ export default class RSVPViewer extends Component {
 
   	const rsvpsViews = rsvps.slice(0,MAX_VIEWED).map(RSVP);
     return (
-    	<div>
+    	<div className='rsvp-views'>
     		{rsvpsViews}
     	</div>
     );

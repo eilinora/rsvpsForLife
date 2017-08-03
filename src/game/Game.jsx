@@ -35,14 +35,8 @@ export default class Game extends Component {
     	<div>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
 
-				<Flex>
-					<FlexItem>
-						<GameBoard rsvsp={this.state.rsvps} />
-					</FlexItem>
-					<FlexItem shrink>
-						<RSVPViewer rsvps={this.state.rsvps} />
-					</FlexItem>
-				</Flex>
+				<GameBoard rsvps={this.state.rsvps} />
+				<RSVPViewer rsvps={this.state.rsvps} />
     	</div>
     );
   }

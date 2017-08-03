@@ -7605,3 +7605,40 @@ Breakpoints        | Property       | Variants
 @media only screen and (min-width: 840px) {
   .atLarge_border--none {
     border-width: 0 !important; } }
+
+.board {
+  position: relative;
+  float: left;
+  height: 100%; }
+
+.rsvp-views {
+  float: right;
+  width: 150px;
+  padding-right: 15px; }
+
+.piece {
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px; }
+  .piece.going {
+    background-color: green; }
+  .piece.not-going {
+    background-color: red; }
+  .piece.waitlist {
+    background-color: waitlist; }
+
+
+.response {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px; }
+  .response.going {
+    background-color: green; }
+  .response.not-going {
+    background-color: red; }
+  .response.waitlist {
+    background-color: waitlist; }
+  .response svg {
+    fill: white;
+    color: white; }
