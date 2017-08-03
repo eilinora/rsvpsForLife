@@ -6,6 +6,13 @@ import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
 import RSVPViewer from './RSVPViewer';
 
 const STREAM_URL = 'ws://stream.meetup.com/2/rsvps';
+const RSVP_BUFFER_LENGTH = 2048;
+function truncateArray(a, max) {
+	if (a.length >= max) {
+		a.pop();
+	}
+	return a;
+}
 
 export default class Game extends Component { 
 	constructor(props) {
@@ -18,7 +25,7 @@ export default class Game extends Component {
 
 	handleData(data) {
 		this.setState((state, props) => ({
-			rsvps: [JSON.parse(data), ...state.rsvps]
+			rsvps: [JSON.parse(data), ...truncateArray(state.rsvps, RSVP_BUFFER_LENGTH)]
 		}));
 	}
 
