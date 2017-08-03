@@ -25,8 +25,7 @@ export default class Game extends Component {
 			rsvpTimer: {
 				times: [],
 				rsvpsPerMin: 80
-			},
-			soundtrack: true
+			}
 		};
 		this.handleData = this.handleData.bind(this);
 		this.updateRsvpTimer = this.updateRsvpTimer.bind(this);
@@ -51,8 +50,7 @@ export default class Game extends Component {
 	handleData(data) {
 		this.setState((state, props) => ({
 			rsvps: [JSON.parse(data), ...truncateArray(state.rsvps, RSVP_BUFFER_LENGTH)],
-			rsvpTimer: this.updateRsvpTimer(state.rsvpTimer),
-			soundtrack: true
+			rsvpTimer: this.updateRsvpTimer(state.rsvpTimer)
 		}));
 	}
 
@@ -60,7 +58,7 @@ export default class Game extends Component {
     return (
     	<div>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
-				<Soundtrack tempo={this.state.rsvpTimer.rsvpsPerMin} playing={this.state.soundtrack}/>
+				<Soundtrack tempo={this.state.rsvpTimer.rsvpsPerMin}/>
 				<div>RSVPs/min: {this.state.rsvpTimer.rsvpsPerMin}</div>
 				<Flex>
 					<FlexItem>
