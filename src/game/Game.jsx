@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
+import Flex from 'meetup-web-components/lib/layout/Flex';
+import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
+
 import RSVPViewer from './RSVPViewer';
 
 const STREAM_URL = 'ws://stream.meetup.com/2/rsvps';
@@ -14,7 +17,6 @@ export default class Game extends Component {
 	}
 
 	handleData(data) {
-		// console.log(JSON.parse(data));
 		this.setState((state, props) => ({
 			rsvps: [JSON.parse(data), ...state.rsvps]
 		}));
@@ -25,7 +27,14 @@ export default class Game extends Component {
     	<div>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
 
-				<RSVPViewer rsvps={this.state.rsvps} />
+				<Flex>
+					<FlexItem>
+
+					</FlexItem>
+					<FlexItem shrink>
+						<RSVPViewer rsvps={this.state.rsvps} />
+					</FlexItem>
+				</Flex>
     	</div>
     );
   }

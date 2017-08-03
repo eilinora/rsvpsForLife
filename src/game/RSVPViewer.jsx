@@ -14,7 +14,6 @@ const RSVP = (rsvp) => {
 			</FlexItem>
 			<FlexItem>
 				<p>{rsvp.member.member_name}</p>
-				<p>{rsvp.member.member_name}</p>
 			</FlexItem>
 		</Flex>
 	</div>
