@@ -29,7 +29,9 @@ export default class Game extends Component {
 
 				<Flex>
 					<FlexItem>
-
+						<div>
+							the actual game...
+						</div>
 					</FlexItem>
 					<FlexItem shrink>
 						<RSVPViewer rsvps={this.state.rsvps} />
