@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+	Bitcrusher,
 	Monosynth,
 	Song,
 	Sequencer,
@@ -12,32 +13,25 @@ export default class Soundtrack extends Component {
 		if (this.props.tempo > 0) {
 			return (
 				<Song tempo={this.props.tempo} playing={true}>
-				  <Sequencer resolution={16} bars={4}>
-					<Monosynth
-					   gain = {0.2}
-					   glide = {0.25}
-					   type="square"
-					   steps={[
-						   [0, 5, 'c3'],
-						   [4, 5, 'c#3'],
-						   [8, 5, 'd#3'],
-						   [12, 5, 'c3'],
-						   [16, 5, 'c3'],
-						   [20, 5, 'c#3'],
-						   [24, 5, 'd#3'],
-						   [28, 5, 'c3'],
-						   [32, 5, 'c3'],
-						   [36, 5, 'c#3'],
-						   [40, 5, 'd#3'],
-						   [44, 5, 'c3'],
-						   [48, 5, 'c3'],
-						   [52, 5, 'c#3'],
-						   [56, 5, 'd#3'],
-						   [60, 4, 'c3'],
-					   ]}
-					   />
+				  <Sequencer resolution={16} bars={2}>
+					  <Synth
+						 gain = {0.2}
+						 type="square"
+						 steps={[
+							 [0, 4, 'c3'],
+							 [4, 4, 'g3'],
+							 [8, 4, 'e3'],
+							 [12, 4, 'g3'],
+							 [16, 4, 'd3'],
+							 [20, 4, 'g3'],
+							 [24, 4, 'f3'],
+							 [28, 4, 'g3']
+						 ]}
+						 />
+				  </Sequencer>
+				  <Sequencer resolution={16} bars={8}>
 					<Synth
-					   type="triangle"
+					   type="sawtooth"
 					   envelope={{
 						   attack: 0,
 						   delay: 0,
@@ -48,7 +42,10 @@ export default class Soundtrack extends Component {
 					   steps={[
 						   [0, 16, 'c4'],
 						   [16, 16, 'g4'],
-						   [32, 32, 'f#4']
+						   [32, 32, 'e4'],
+						   [64, 16, 'c4'],
+						   [80, 16, 'g4'],
+						   [96, 32, 'a4']
 					   ]}
 					   />
 				  </Sequencer>
