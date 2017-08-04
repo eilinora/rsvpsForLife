@@ -71,7 +71,6 @@ $piece: 100px;
 	width: 125px;
 	height: 90px;
 	z-index: 1000;
-	background-color: red;
 	mix-blend-mode: multiply;
 	&.character--left {
 		-moz-transform: scaleX(-1);

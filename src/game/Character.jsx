@@ -34,17 +34,22 @@ export default class Character extends Component {
 	tick(e) {
 		const diff = 15;
 		const allowedKeys = ['ArrowRight', 'ArrowLeft'];
-		if (this.isActive && allowedKeys.includes(e.code)) {
-			const goingRight = e.code === 'ArrowRight';
-			const direction = goingRight ? diff : -diff;
+		console.log('e.code');
+		if (this.isActive) {
+			if (allowedKeys.includes(e.code)) {
+				const goingRight = e.code === 'ArrowRight';
+				const direction = goingRight ? diff : -diff;
 
-			this.setState(state => ({
-				goingRight: goingRight,
-				styles: {
-					...state.styles,
-					left: state.styles.left + direction
-				}
-			}));
+				this.setState(state => ({
+					goingRight: goingRight,
+					styles: {
+						...state.styles,
+						left: state.styles.left + direction
+					}
+				}));
+			} else if (e.code === 'SpaceBar') {
+
+			}
 		}
 	}
 
