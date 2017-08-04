@@ -25,7 +25,36 @@ class GameBoard extends Component {
 		this.onHit = this.onHit.bind(this);
 		this.onTheFloor = this.onTheFloor.bind(this);
 		this.onKillGame = this.onKillGame.bind(this);
+
+		window.AudioContext = window.AudioContext || window.webkitAudioContext;
+		this.audioContext = new AudioContext();
+
+		this.loadDownSound();
+		this.playDownSound = this.playDownSound.bind(this);
+
 		raf(this.tick);
+	}
+
+	loadDownSound() {
+		var request = new XMLHttpRequest();
+		request.open('GET', 'samples/down.wav', true);
+		request.responseType = 'arraybuffer';
+		var that = this;
+		request.onload = function() {
+			that.audioContext.decodeAudioData(request.response, function(buffer) {
+				that.downBuffer = buffer;
+			}, () => console.log("something just broke"));
+		};
+		request.send();
+	}
+
+	playDownSound() {
+		if(this.downBuffer) {
+			const downSource = this.audioContext.createBufferSource();
+			downSource.buffer = this.downBuffer;
+			downSource.connect(this.audioContext.destination);
+			downSource.start(0);
+		}
 	}
 
 	componentWillMount() {
@@ -86,7 +115,7 @@ class GameBoard extends Component {
 
 		const pieces = rsvps.slice(0,50).map((rsvp, index) => {
 			return (
-				<Piece key={rsvp.rsvp_id} rsvp={rsvp} character={this.character} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} />
+				<Piece key={rsvp.rsvp_id} appear={this.playDownSound} rsvp={rsvp} character={this.character} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} audioContext={this.audioContext}/>
 			)
 		});
 

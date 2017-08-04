@@ -82,6 +82,10 @@ export default class Piece extends Component {
 		}
 	}
 
+	componentWillMount() {
+		this.props.appear();
+	}
+
 	componentWillUnmount() {
 		this.isActive = false;
 	}
