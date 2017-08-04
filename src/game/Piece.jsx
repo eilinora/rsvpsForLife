@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
-const durationMax = 70;
+const durationMax = 80;
 const raf = window.requestAnimationFrame;
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
@@ -72,7 +72,7 @@ export default class Piece extends Component {
 		this.setState(() => ({
 			hide: true
 		}));
-		this.props.onHit(this.state.rsvp.rsvp_id);
+		this.props.onHit(this.state.rsvp.rsvp_id, this.state.rsvp.response);
 	}
 
 	onTheFloor() {}

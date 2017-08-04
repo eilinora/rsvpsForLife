@@ -26,8 +26,7 @@ class GameBoard extends Component {
 	}
 
   tick () {
-    if (this.state.life < 0) {
-      console.log('YOUR DEAD!');
+    if (this.state.life < 0 && this.state.isAlive) {
       this.setState(state => ({
         isAlive: false
       }));
@@ -39,11 +38,17 @@ class GameBoard extends Component {
     }
   }
 
-  onHit(rsvp_id) {
+  onHit(rsvp_id, response) {
     console.log('hit!!');
-    this.setState(state => ({
-      life: state.life + lifeBoost
-    }));
+    if (response === 'yes') {
+      this.setState(state => ({
+        life: state.life + lifeBoost
+      }));
+    } else {
+      this.setState(state => ({
+        isAlive: false
+      }));
+    }
   }
 
   onTheFloor(rsvp_id) {
@@ -55,7 +60,7 @@ class GameBoard extends Component {
   render() {
     const { rsvps, history } = this.props;
     if (!this.state.isAlive) {
-      // history.push('/finish');
+      history.push('/finish');
     }
 
     const pieces = rsvps.slice(0,50).map((rsvp, index) => {

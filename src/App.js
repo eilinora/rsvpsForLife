@@ -15,13 +15,13 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <ul>
+          {/**<ul>
             <li className='display--inline padding--right'><Link to="/">Welcome</Link></li>
             <li className='display--inline padding--right'><Link to="/game">Game</Link></li>
             <li className='display--inline padding--right'><Link to="/finish">Finish</Link></li>
           </ul>
 
-          <hr/>
+          <hr/>**/}
 
           <Route exact path="/" component={Welcome}/>
           <Route path="/game" component={Game}/>
