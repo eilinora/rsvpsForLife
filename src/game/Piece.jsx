@@ -36,7 +36,7 @@ export default class Piece extends Component {
 		this.state = {
 			rsvp: props.rsvp,
 			startPos: 0,
-			endPos: 900,
+			endPos: window.outerHeight + 300,
 			duration: durationMax + Math.random()*20,
 			startTime: Date.now(),
 
@@ -59,7 +59,7 @@ export default class Piece extends Component {
 			if (isCollide(character.characterEl, this.gamePiece)) {
 				this.onHit();
 			} else {
-				if(this.state.styles.top < this.state.endPos) {
+				if(parseInt(this.state.styles.top) < this.state.endPos) {
 					this.setState(state => {
 						const now = Date.now();
 						// progress: starts at 0, ends at > 1

@@ -80,6 +80,14 @@ $piece: 100px;
 		filter: FlipH;
 		-ms-filter: "FlipH";
 	}
+	.hit-area {
+		width: 50px;
+		height: 50px;
+		background-color: transparent;
+		margin-left: 36px;
+		margin-top: -66px;
+		position:relative;
+	}
 }
 
 .response {
