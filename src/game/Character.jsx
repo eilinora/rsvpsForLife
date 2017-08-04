@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
-// const durationMax = 80;
+import flying from '../assets/flying.gif';
+import gotHit from '../assets/got-hit.gif';
+
 const raf = window.requestAnimationFrame;
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
@@ -13,20 +15,11 @@ export default class Character extends Component {
 	constructor(props) {
 		super(props);
 
-		// this.onHit = this.onHit.bind(this);
 		this.tick = this.tick.bind(this);
-		this.stopTicks = this.tick.bind(this);
 
 		this.isActive = true;
 		document.addEventListener('keydown', this.tick);
-		document.addEventListener('keyup', this.stopTicks);
 		this.state = {
-			// rsvp: props.rsvp,
-			// startPos: 0,
-			// endPos: 900,
-			// duration: durationMax + Math.random()*20,
-			// startTime: Date.now(),
-			// hide: false,
 			isMoving: false,
 
 			styles: {
@@ -42,19 +35,17 @@ export default class Character extends Component {
 		const diff = 15;
 		const allowedKeys = ['ArrowRight', 'ArrowLeft'];
 		if (this.isActive && allowedKeys.includes(e.code)) {
-			const direction = e.code === 'ArrowRight' ? diff : -diff;
+			const goingRight = e.code === 'ArrowRight';
+			const direction = goingRight ? diff : -diff;
 
 			this.setState(state => ({
+				goingRight: goingRight,
 				styles: {
 					...state.styles,
 					left: state.styles.left + direction
 				}
 			}));
 		}
-	}
-
-	stopTicks() {
-
 	}
 
 	componentWillUnmount() {
@@ -67,11 +58,15 @@ export default class Character extends Component {
 		const classNames = cx(
 			'character',
 			{
+				'character--left': !this.state.goingRight,
+				'character--right': this.state.goingRight,
 			}
 		);
-//
+
 		return (
-			<div className={classNames} style={this.state.styles} ref={c => this.characterEl = c}></div>
+			<div className={classNames} style={this.state.styles} ref={c => this.characterEl = c}>
+				<img src={flying} width="125px" height="90px"/>
+			</div>
 		);
 	}
 }

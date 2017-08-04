@@ -7654,9 +7654,15 @@ Breakpoints        | Property       | Variants
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 150px;
-  width: 50px;
-  background: #f00; }
+  height: 100px;
+  width: 50px; }
+  .character.character--left {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH"; }
 
 .response {
   border-radius: 50%;
