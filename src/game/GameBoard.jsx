@@ -5,7 +5,7 @@ import Character from './Character';
 import Soundtrack from './Soundtrack';
 
 const raf = window.requestAnimationFrame;
-const gameBoardWidth = 900;
+const gameBoardWidth = window.outerWidth-200;
 const lifeForceStart = 250;
 const lifeRate = 0.2;
 const lifeBoost = 2;
@@ -25,7 +25,6 @@ class GameBoard extends Component {
 		this.onHit = this.onHit.bind(this);
 		this.onTheFloor = this.onTheFloor.bind(this);
 		this.onKillGame = this.onKillGame.bind(this);
-
 		raf(this.tick);
 	}
 

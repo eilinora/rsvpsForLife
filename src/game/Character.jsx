@@ -7,7 +7,7 @@ import gotHit from '../assets/got-hit.gif';
 const diff = 20;
 const startJump = 100;
 const jumpHeight = 100;
-const jumpDuration = 50;
+const jumpDuration = 35;
 const raf = window.requestAnimationFrame;
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
@@ -51,9 +51,10 @@ export default class Character extends Component {
 						left: state.styles.left + direction
 					}
 				}));
-			} else if (e.code === 'Space' && !this.state.isJumping) {
+			} else if (e.code === 'Space') { //  && !this.state.isJumping
 				this.setState(state => ({
 					isJumping: true,
+					isFalling: false,
 					startTime: Date.now(),
 					startPos: startJump,
 					endPos: startJump + jumpHeight,
@@ -99,13 +100,9 @@ export default class Character extends Component {
 						}));
 					}
 				}
-				
 				raf(this.jumping);
-				
 			} else {
-				if (!this.state.isFalling) {
-					this.fallDown();
-				}
+				this.fallDown();
 			}
 		}
 	}
@@ -118,7 +115,7 @@ export default class Character extends Component {
 			endPos: -startJump,
 			styles: {
 				...state.styles,
-				bottom: state.styles.bottom-2
+				bottom: startJump+jumpHeight-2
 			}
 		}));
 		raf(this.jumping);

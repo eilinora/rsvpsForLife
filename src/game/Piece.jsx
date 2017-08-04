@@ -55,7 +55,6 @@ export default class Piece extends Component {
 	tick() {
 		if (this.isActive) {
 			const { character } = this.props;
-			const { rsvp } = this.state;
 
 			if (isCollide(character.characterEl, this.gamePiece)) {
 				this.onHit();

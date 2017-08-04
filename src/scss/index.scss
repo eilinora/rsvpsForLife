@@ -23,13 +23,18 @@
 	background-image: url('../assets/background.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
+	overflow:hidden;
 }
 
 .rsvp-views {
-	float:right;
+	position:absolute;
+	right:0;
+	top:0;
   width: 150px;
   padding-right: 15px;
   color: white;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .text--white {
