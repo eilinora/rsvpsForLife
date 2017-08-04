@@ -27,8 +27,7 @@ export default class Game extends Component {
 			rsvpTimer: {
 				times: [],
 				rsvpsPerMin: 80
-			},
-			soundtrack: true
+			}
 		};
 		this.handleData = this.handleData.bind(this);
 		this.updateRsvpTimer = this.updateRsvpTimer.bind(this);
