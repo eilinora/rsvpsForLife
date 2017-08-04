@@ -23,7 +23,7 @@ export default class Character extends Component {
 			isMoving: false,
 
 			styles: {
-				bottom: '20px',
+				bottom: '100px',
 				left: props.gameBoardWidth/2,
 			}
 		};

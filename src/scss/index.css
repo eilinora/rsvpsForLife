@@ -7615,10 +7615,18 @@ Breakpoints        | Property       | Variants
   float: left;
   height: 100vh; }
 
+.gameBackground {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; }
+
 .rsvp-views {
   float: right;
   width: 150px;
-  padding-right: 15px; }
+  padding-right: 15px;
+  color: white; }
 
 .text--white {
   padding-left: 4px;
@@ -7695,4 +7703,5 @@ Breakpoints        | Property       | Variants
 .rsvp-ticker {
   position: absolute;
   bottom: 0;
-  left: 20px; }
+  left: 20px;
+  color: white; }

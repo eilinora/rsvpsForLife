@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
 
+// import gameBackground from '../assets/background.jpg';
+
 import GameBoard from './GameBoard';
 import Soundtrack from './Soundtrack';
 import RSVPViewer from './RSVPViewer';
@@ -61,9 +63,8 @@ export default class Game extends Component {
 
   render() {
     return (
-    	<div>
+    	<div className='gameBackground'>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
-
 				<Soundtrack tempo={this.state.rsvpTimer.rsvpsPerMin} playing={this.state.soundtrack}/>
 				<GameBoard rsvps={this.state.rsvps} />
 				<RSVPViewer rsvps={this.state.rsvps} />
