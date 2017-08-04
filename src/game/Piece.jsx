@@ -16,6 +16,7 @@ export default class Piece extends Component {
     this.onHit = this.onHit.bind(this);
     this.tick = this.tick.bind(this);
 
+    this.isActive = true;
 		this.state = {
 			rsvp: props.rsvp,
 			startPos: 0,
@@ -36,7 +37,7 @@ export default class Piece extends Component {
   }
 
   tick() {
-		if (!this.state.hide) {
+		if (!this.state.hide && this.isActive) {
 			if(this.state.styles.top < this.state.endPos) {
 				this.setState(state => {
 					const now = Date.now();
@@ -57,18 +58,21 @@ export default class Piece extends Component {
 		  	this.setState(state => ({
 			  	hide: true
 		  	}));
+		  	this.isActive = false;
 		  	this.props.onTheFloor(this.state.rsvp.rsvp_id);
 		  }
 		}
 	}
 
 	componentWillUnmount() {
+		this.isActive = false;
 		this.setState(() => ({
 			hide: true
 		}));
 	}
 
 	onHit() {
+		this.isActive = false;
 		this.setState(() => ({
 			hide: true
 		}));

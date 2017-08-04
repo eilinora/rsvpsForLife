@@ -12,70 +12,76 @@ class GameBoard extends Component {
 	constructor(props) {
 		super(props);
 
-    this.state = {
-      isAlive: true,
-      life: lifeForceStart,
-      startTime: Date.now(),
-    };
+		this.isActive = true;
+		this.state = {
+			life: lifeForceStart,
+			startTime: Date.now(),
+		};
 
-    this.onHit = this.onHit.bind(this);
-    this.onTheFloor = this.onTheFloor.bind(this);
-    this.tick = this.tick.bind(this);
+		this.onHit = this.onHit.bind(this);
+		this.onTheFloor = this.onTheFloor.bind(this);
+		this.tick = this.tick.bind(this);
+		this.onKillGame = this.onKillGame.bind(this);
 
-    raf(this.tick);
+		raf(this.tick);
 	}
 
-  tick () {
-    if (this.state.life < 0 && this.state.isAlive) {
-      this.setState(state => ({
-        isAlive: false
-      }));
-    } else {
-      this.setState(state => ({
-        life: state.life-lifeRate
-      }));
-      raf(this.tick);
-    }
-  }
+	componentWillUnmount() {
+		this.onKillGame();
+	}
 
-  onHit(rsvp_id, response) {
-    console.log('hit!!');
-    if (response === 'yes') {
-      this.setState(state => ({
-        life: state.life + lifeBoost
-      }));
-    } else {
-      this.setState(state => ({
-        isAlive: false
-      }));
-    }
-  }
+	onKillGame() {
+		this.isActive = false;
+	}
 
-  onTheFloor(rsvp_id) {
-    this.setState(state => ({
-      life: state.life - lifeBoost
-    }));
-  }
+	tick () {
+		if(this.isActive) {
+			if (this.state.life < 0) {
+				this.onKillGame();
+			} else {
+				this.setState(state => ({
+					life: state.life-lifeRate
+				}));
+				raf(this.tick);
+			}
+		}
+	}
 
-  render() {
-    const { rsvps, history } = this.props;
-    if (!this.state.isAlive) {
-      history.push('/finish');
-    }
+	onHit(rsvp_id, response) {
+		if (response === 'yes') {
+			this.setState(state => ({
+				life: state.life + lifeBoost
+			}));
+		} else {
+			this.onKillGame();
+		}
+	}
 
-    const pieces = rsvps.slice(0,50).map((rsvp, index) => {
-      return (
-        <Piece key={rsvp.rsvp_id} rsvp={rsvp} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} />
-      )
-    });
+	onTheFloor(rsvp_id) {
+		this.setState(state => ({
+			life: state.life - lifeBoost
+		}));
+	}
 
-    return (
-    	<div className='board' style={{width:`${gameBoardWidth}px`}}>
+	render() {
+		const { rsvps, history } = this.props;
+		if (!this.isActive) {
+			history.push('/finish');
+		}
+
+		const pieces = rsvps.slice(0,50).map((rsvp, index) => {
+			return (
+				<Piece key={rsvp.rsvp_id} rsvp={rsvp} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} />
+			)
+		});
+
+		return (
+			<div className='board' style={{width:`${gameBoardWidth}px`}}>
 				<div className='life-force' style={{width:this.state.life}} />
-        <div>{pieces}</div>
-    	</div>
-    );
-  }
+				<div>{pieces}</div>
+			</div>
+		);
+	}
 }
 
 export default withRouter(GameBoard);
