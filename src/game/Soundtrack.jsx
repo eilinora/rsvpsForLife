@@ -8,17 +8,10 @@ import {
 } from '../react-music';
 
 export default class Soundtrack extends Component { 
-	constructor(props) {
-		super(props);
-		this.state = {
-			playing: true
-		}
-	}
-
 	render() {
 		if (this.props.tempo > 0) {
 			return (
-				<Song tempo={this.props.tempo} playing={this.state.playing}>
+				<Song tempo={this.props.tempo} playing={this.props.playing}>
 				  <Sequencer resolution={16} bars={1}>
 					<Monosynth
 					   gain = {0.1}

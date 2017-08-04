@@ -4,7 +4,6 @@ import Websocket from 'react-websocket';
 // import gameBackground from '../assets/background.jpg';
 
 import GameBoard from './GameBoard';
-import Soundtrack from './Soundtrack';
 import RSVPViewer from './RSVPViewer';
 
 const STREAM_URL = 'ws://stream.meetup.com/2/rsvps';
@@ -65,8 +64,7 @@ export default class Game extends Component {
     return (
     	<div className='gameBackground'>
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
-				<Soundtrack tempo={this.state.rsvpTimer.rsvpsPerMin} playing={this.state.soundtrack}/>
-				<GameBoard rsvps={this.state.rsvps} />
+				<GameBoard rsvps={this.state.rsvps} rsvpTimer={this.state.rsvpTimer} />
 				<RSVPViewer rsvps={this.state.rsvps} />
 				<div className='rsvp-ticker'>RSVPs/min: {this.state.rsvpTimer.rsvpsPerMin}</div>
     	</div>
