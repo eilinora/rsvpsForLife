@@ -28,12 +28,17 @@ class GameBoard extends Component {
 		raf(this.tick);
 	}
 
+	componentWillMount() {
+		this.deathSound = new Audio('samples/death.wav');
+	}
+
 	componentWillUnmount() {
 		this.onKillGame();
 	}
 
 	onKillGame() {
 		this.isActive = false;
+		this.deathSound.play();
 	}
 
 	tick () {
