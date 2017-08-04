@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Piece from './Piece';
 import Character from './Character';
+import Soundtrack from './Soundtrack';
 
 const raf = window.requestAnimationFrame;
 const gameBoardWidth = 900;
@@ -16,7 +17,7 @@ class GameBoard extends Component {
 		this.isActive = true;
 		this.state = {
 			life: lifeForceStart,
-			startTime: Date.now(),
+			startTime: Date.now()
 		};
 
 		this.tick = this.tick.bind(this);
@@ -27,12 +28,17 @@ class GameBoard extends Component {
 		raf(this.tick);
 	}
 
+	componentWillMount() {
+		this.deathSound = new Audio('samples/death.wav');
+	}
+
 	componentWillUnmount() {
 		this.onKillGame();
 	}
 
 	onKillGame() {
 		this.isActive = false;
+		this.deathSound.play();
 	}
 
 	tick () {
@@ -81,6 +87,7 @@ class GameBoard extends Component {
 
 		return (
 			<div className='board' style={{width:`${gameBoardWidth}px`}}>
+				<Soundtrack tempo={this.props.rsvpTimer.rsvpsPerMin} playing={this.isActive}/>
 				<div className='life-force' style={{width:this.state.life}} />
 				<div>{pieces}</div>
 				<Character gameBoardWidth={gameBoardWidth} gameActive={this.isActive} ref={c => this.character = c}/>
