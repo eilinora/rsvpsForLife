@@ -74,6 +74,19 @@ $piece: 100px;
 	}
 }
 
+.bg {
+	width:100%;
+	background:black;
+}
+
+.content {
+	height:100vh;
+	position:relative;
+	background: black;
+	.text--pageTitle {
+		color:$C_white;
+	}
+}
 
 .rsvp-ticker {
 	position: absolute;

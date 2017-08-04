@@ -7664,6 +7664,17 @@ Breakpoints        | Property       | Variants
     fill: white;
     color: white; }
 
+.bg {
+  width: 100%;
+  background: black; }
+
+.content {
+  height: 100vh;
+  position: relative;
+  background: black; }
+  .content .text--pageTitle {
+    color: white; }
+
 .rsvp-ticker {
   position: absolute;
   bottom: 0;
