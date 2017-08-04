@@ -10,6 +10,17 @@ const lifeForceStart = 250;
 const lifeRate = 0.2;
 const lifeBoost = 2;
 
+const soundPaths = {
+	"bubbleAppear": {
+		path: 'samples/down.wav',
+		gain: 0.5
+	},
+	"hit": {
+		path: 'samples/up.wav',
+		gain: 1.0
+	}
+};
+
 class GameBoard extends Component { 
 	constructor(props) {
 		super(props);
@@ -29,31 +40,36 @@ class GameBoard extends Component {
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		this.audioContext = new AudioContext();
 
-		this.loadDownSound();
-		this.playDownSound = this.playDownSound.bind(this);
+		this.loadSounds();
+		this.soundBuffers = {};
+		this.playSound = this.playSound.bind(this);
 
 		raf(this.tick);
 	}
 
-	loadDownSound() {
-		var request = new XMLHttpRequest();
-		request.open('GET', 'samples/down.wav', true);
-		request.responseType = 'arraybuffer';
+	loadSounds() {
 		var that = this;
-		request.onload = function() {
-			that.audioContext.decodeAudioData(request.response, function(buffer) {
-				that.downBuffer = buffer;
-			}, () => console.log("something just broke"));
-		};
-		request.send();
+		Object.keys(soundPaths).forEach(key => {
+			var request = new XMLHttpRequest();
+			request.open('GET', soundPaths[key].path, true);
+			request.responseType = 'arraybuffer';
+			request.onload = function() {
+				that.audioContext.decodeAudioData(request.response, function(buffer) {
+					that.soundBuffers[key] = buffer;
+				}, () => console.log("something just broke"));
+			};
+			request.send();
+		});
 	}
-
-	playDownSound() {
-		if(this.downBuffer) {
-			const downSource = this.audioContext.createBufferSource();
-			downSource.buffer = this.downBuffer;
-			downSource.connect(this.audioContext.destination);
-			downSource.start(0);
+	playSound(name) {
+		if(this.soundBuffers[name]) {
+			const source = this.audioContext.createBufferSource();
+			const gainNode = this.audioContext.createGain();
+			gainNode.gain.value = soundPaths[name].gain;
+			source.buffer = this.soundBuffers[name];
+			source.connect(gainNode);
+			gainNode.connect(this.audioContext.destination);
+			source.start(0);
 		}
 	}
 
@@ -89,7 +105,7 @@ class GameBoard extends Component {
 
 	onHit(response) {
 		if (response === 'yes') {
-			this.hitSound.play();
+			this.playSound("hit");
 			this.setState(state => ({
 				life: state.life + lifeBoost
 			}));
@@ -115,7 +131,7 @@ class GameBoard extends Component {
 
 		const pieces = rsvps.slice(0,50).map((rsvp, index) => {
 			return (
-				<Piece key={rsvp.rsvp_id} appear={this.playDownSound} rsvp={rsvp} character={this.character} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} audioContext={this.audioContext}/>
+				<Piece key={rsvp.rsvp_id} appear={() => this.playSound("bubbleAppear")} rsvp={rsvp} character={this.character} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} audioContext={this.audioContext}/>
 			)
 		});
 
