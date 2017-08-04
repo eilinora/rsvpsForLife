@@ -29,6 +29,7 @@ class GameBoard extends Component {
 	}
 
 	componentWillMount() {
+		this.hitSound = new Audio('samples/up.wav');
 		this.deathSound = new Audio('samples/death.wav');
 	}
 
@@ -59,6 +60,7 @@ class GameBoard extends Component {
 
 	onHit(response) {
 		if (response === 'yes') {
+			this.hitSound.play();
 			this.setState(state => ({
 				life: state.life + lifeBoost
 			}));
