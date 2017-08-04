@@ -63,9 +63,11 @@ export default class Character extends Component {
 			}
 		);
 
+		const img = this.props.gameActive ? flying : gotHit;
+
 		return (
 			<div className={classNames} style={this.state.styles} ref={c => this.characterEl = c}>
-				<img src={flying} width="125px" height="90px"/>
+				<img src={img} width="125px" height="90px"/>
 			</div>
 		);
 	}

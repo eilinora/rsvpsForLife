@@ -7655,7 +7655,8 @@ Breakpoints        | Property       | Variants
   left: 0;
   bottom: 0;
   height: 100px;
-  width: 50px; }
+  width: 50px;
+  mix-blend-mode: multiply; }
   .character.character--left {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);

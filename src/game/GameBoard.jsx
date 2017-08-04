@@ -81,7 +81,7 @@ class GameBoard extends Component {
 			<div className='board' style={{width:`${gameBoardWidth}px`}}>
 				<div className='life-force' style={{width:this.state.life}} />
 				<div>{pieces}</div>
-				<Character gameBoardWidth={gameBoardWidth} ref={c => this.character = c}/>
+				<Character gameBoardWidth={gameBoardWidth} gameActive={this.isActive} ref={c => this.character = c}/>
 			</div>
 		);
 	}

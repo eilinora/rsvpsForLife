@@ -61,6 +61,7 @@ $piece: 100px;
 	bottom:0;
 	height: 100px;
 	width: 50px;
+	mix-blend-mode: multiply;
 	&.character--left {
 		-moz-transform: scaleX(-1);
 		-o-transform: scaleX(-1);
