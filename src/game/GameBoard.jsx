@@ -17,6 +17,7 @@ class GameBoard extends Component {
 		this.isActive = true;
 		this.state = {
 			life: lifeForceStart,
+			isHide: false,
 			startTime: Date.now()
 		};
 
@@ -38,6 +39,9 @@ class GameBoard extends Component {
 
 	onKillGame() {
 		this.isActive = false;
+		this.setState(state => ({
+			isHide: true
+		}));
 		this.deathSound.play();
 	}
 
@@ -73,7 +77,7 @@ class GameBoard extends Component {
 
 	render() {
 		const { rsvps, history } = this.props;
-		if (!this.isActive) {
+		if (!this.isActive || this.state.isHide) {
 			// setTimeout(() => {
 			// 	history.push('/finish');
 			// }, 700);

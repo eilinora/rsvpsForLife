@@ -39,6 +39,7 @@ export default class Piece extends Component {
 			endPos: window.outerHeight + 300,
 			duration: durationMax + Math.random()*20,
 			startTime: Date.now(),
+			isHide: false,
 
 			styles: {
 				display: 'flex',
@@ -76,8 +77,7 @@ export default class Piece extends Component {
 
 					raf(this.tick);
 				} else {
-					this.isActive = false;
-					// this.props.onTheFloor(rsvp.rsvp_id);
+					this.onHideMe();
 				}
 			}
 		}
@@ -87,8 +87,15 @@ export default class Piece extends Component {
 		this.isActive = false;
 	}
 
-	onHit() {
+	onHideMe() {
 		this.isActive = false;
+		this.setState(state => ({
+			isHide: true
+		}));
+	}
+
+	onHit() {
+		this.onHideMe();
 		this.props.onHit(this.state.rsvp.response);
 	}
 
@@ -96,7 +103,7 @@ export default class Piece extends Component {
 		const { rsvp } = this.state;
 		const { response } = rsvp;
 
-		if (!this.isActive) {
+		if (!this.isActive || this.state.isHide) {
 			return false;
 		}
 
