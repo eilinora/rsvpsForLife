@@ -15,6 +15,9 @@ export default class Welcome extends Component {
 					<Chunk className='margin--center span--50'>
 						<p className='text--big'>Hit the Yes RSVPs to live, accidently hit the NOs and your dead. Time is short only way to live is to get all the yeses.</p>
 					</Chunk>
+					<Chunk className='margin--center span--50'>
+						<p className='text--big'>Use the LEFT and RIGHT arrow keys to move your character back and forth.</p>
+					</Chunk>
 				</Section>
 				<Section className='align--center'>
 					<Link className='button button--primary' to='/game'>Let the games begin!</Link>

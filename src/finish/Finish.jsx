@@ -9,9 +9,9 @@ import background from '../assets/gameOver.jpg';
 export default class Finish extends Component { 
 	render() {
 		return (
-			<div>
-				<img className='bg' src={background} />
-				<Bounds className='content'>
+			<div className='content'>
+				<img className='bg span--50 margin--center' src={background} />
+				<Bounds>
 					<Section className='align--center'>
 						<Link className='button button--primary' to='/game'>Try again!</Link>
 					</Section>

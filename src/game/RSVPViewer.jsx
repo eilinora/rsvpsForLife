@@ -42,7 +42,7 @@ export default class RSVPViewer extends Component {
 
   	const rsvpsViews = rsvps.slice(0,MAX_VIEWED).map(RSVP);
     return (
-    	<div className='rsvp-views'>
+    	<div className='rsvp-views padding--top'>
     		{rsvpsViews}
     	</div>
     );

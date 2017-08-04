@@ -68,7 +68,9 @@ class GameBoard extends Component {
 	render() {
 		const { rsvps, history } = this.props;
 		if (!this.isActive) {
-			// history.push('/finish');
+			// setTimeout(() => {
+			// 	history.push('/finish');
+			// }, 700);
 		}
 
 		const pieces = rsvps.slice(0,50).map((rsvp, index) => {

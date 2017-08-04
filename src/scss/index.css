@@ -7630,7 +7630,7 @@ Breakpoints        | Property       | Variants
   left: 10;
   background-color: #7000b0;
   border: 1px solid gray;
-  height: 10px; }
+  height: 15px; }
 
 .piece {
   display: flex;
@@ -7654,8 +7654,10 @@ Breakpoints        | Property       | Variants
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 100px;
-  width: 50px;
+  width: 125px;
+  height: 90px;
+  z-index: 1000;
+  background-color: red;
   mix-blend-mode: multiply; }
   .character.character--left {
     -moz-transform: scaleX(-1);

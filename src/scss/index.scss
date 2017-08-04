@@ -29,7 +29,7 @@
 	left: 10;
 	background-color: $C_plum;
 	border: 1px solid gray;
-	height: 10px;
+	height: 15px;
 }
 
 $piece: 100px;
@@ -59,8 +59,10 @@ $piece: 100px;
 	position:absolute;
 	left: 0;
 	bottom:0;
-	height: 100px;
-	width: 50px;
+	width: 125px;
+	height: 90px;
+	z-index: 1000;
+	background-color: red;
 	mix-blend-mode: multiply;
 	&.character--left {
 		-moz-transform: scaleX(-1);
