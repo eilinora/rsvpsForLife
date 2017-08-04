@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
 
-// import gameBackground from '../assets/background.jpg';
-
 import GameBoard from './GameBoard';
 import RSVPViewer from './RSVPViewer';
 
@@ -66,7 +64,7 @@ export default class Game extends Component {
 				<Websocket url={STREAM_URL} onMessage={this.handleData}/>
 				<GameBoard rsvps={this.state.rsvps} rsvpTimer={this.state.rsvpTimer} />
 				<RSVPViewer rsvps={this.state.rsvps} />
-				<div className='rsvp-ticker'>RSVPs/min: {this.state.rsvpTimer.rsvpsPerMin}</div>
+				<div className='rsvp-ticker'>RSVPs/min: {Math.round(this.state.rsvpTimer.rsvpsPerMin)}</div>
     	</div>
     );
   }

@@ -7615,6 +7615,10 @@ Breakpoints        | Property       | Variants
   float: left;
   height: 100vh; }
 
+.welcomePiece {
+  display: flex;
+  justify-content: center; }
+
 .gameBackground {
   width: 100%;
   height: 100vh;

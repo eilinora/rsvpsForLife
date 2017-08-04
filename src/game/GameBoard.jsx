@@ -6,7 +6,7 @@ import Soundtrack from './Soundtrack';
 
 const raf = window.requestAnimationFrame;
 const gameBoardWidth = 900;
-const lifeForceStart = 200;
+const lifeForceStart = 250;
 const lifeRate = 0.2;
 const lifeBoost = 2;
 
@@ -74,9 +74,9 @@ class GameBoard extends Component {
 	render() {
 		const { rsvps, history } = this.props;
 		if (!this.isActive) {
-			setTimeout(() => {
-				history.push('/finish');
-			}, 700);
+			// setTimeout(() => {
+			// 	history.push('/finish');
+			// }, 700);
 		}
 
 		const pieces = rsvps.slice(0,50).map((rsvp, index) => {
