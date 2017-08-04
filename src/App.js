@@ -16,9 +16,9 @@ class App extends Component {
       <Router>
         <div>
           <ul>
-            <li><Link to="/">Welcome</Link></li>
-            <li><Link to="/game">Game</Link></li>
-            <li><Link to="/finish">Finish</Link></li>
+            <li className='display--inline padding--right'><Link to="/">Welcome</Link></li>
+            <li className='display--inline padding--right'><Link to="/game">Game</Link></li>
+            <li className='display--inline padding--right'><Link to="/finish">Finish</Link></li>
           </ul>
 
           <hr/>

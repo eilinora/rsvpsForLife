@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
-import Flex from 'meetup-web-components/lib/layout/Flex';
-import FlexItem from 'meetup-web-components/lib/layout/FlexItem';
 
 import GameBoard from './GameBoard';
 import Soundtrack from './Soundtrack';
@@ -16,6 +14,10 @@ function truncateArray(a, max) {
 	}
 	return a;
 }
+
+const uniqueArray = (ar, newItem) => ar.filter(item =>
+   item.rsvp_id !== newItem.rsvp_id
+);
 
 export default class Game extends Component { 
 	constructor(props) {
@@ -34,8 +36,8 @@ export default class Game extends Component {
 
 	updateRsvpTimer(timer) {
 		const now = new Date();
-		var rsvpsPerMin = timer.rsvpsPerMin;
-		var times = times = [now, ...timer.times.slice(0, RSVP_TIME_SAMPLE_BUFFER_LENGTH)];
+		let rsvpsPerMin = timer.rsvpsPerMin;
+		const times = [now, ...timer.times.slice(0, RSVP_TIME_SAMPLE_BUFFER_LENGTH)];
 		if (times.length > 10) {
 			const totalTime = times[0] - times[times.length - 1];
 			const avgPeriodMs = totalTime / (times.length - 1);
@@ -49,8 +51,10 @@ export default class Game extends Component {
 	}
 
 	handleData(data) {
+		const newItem = JSON.parse(data);
+		const rsvps = uniqueArray(truncateArray(this.state.rsvps, RSVP_BUFFER_LENGTH), newItem);
 		this.setState((state, props) => ({
-			rsvps: [JSON.parse(data), ...truncateArray(state.rsvps, RSVP_BUFFER_LENGTH)],
+			rsvps: [newItem, ...rsvps],
 			rsvpTimer: this.updateRsvpTimer(state.rsvpTimer),
 			soundtrack: true
 		}));
@@ -64,7 +68,7 @@ export default class Game extends Component {
 				<Soundtrack tempo={this.state.rsvpTimer.rsvpsPerMin} playing={this.state.soundtrack}/>
 				<GameBoard rsvps={this.state.rsvps} />
 				<RSVPViewer rsvps={this.state.rsvps} />
-				<div>RSVPs/min: {this.state.rsvpTimer.rsvpsPerMin}</div>
+				<div className='rsvp-ticker'>RSVPs/min: {this.state.rsvpTimer.rsvpsPerMin}</div>
     	</div>
     );
   }

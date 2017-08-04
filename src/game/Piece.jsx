@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
+const durationMax = 70;
 const raf = window.requestAnimationFrame;
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
@@ -12,59 +13,89 @@ export default class Piece extends Component {
   constructor(props) {
     super(props);
 
-    this.startPos = 0;
-    this.endPos = 900;
-    this.duration = 50 + Math.random()*20;
-    this.startTime = Date.now();
-    this.hide = false;
+    this.onHit = this.onHit.bind(this);
     this.tick = this.tick.bind(this);
 
 		this.state = {
-			display: 'flex',
-			alignItems: 'center',
-			left: props.gameWidth*Math.random(),
-			top:this.startPos
+			rsvp: props.rsvp,
+			startPos: 0,
+			endPos: 900,
+			duration: durationMax + Math.random()*20,
+			startTime: Date.now(),
+			hide: false,
+
+			styles: {
+				display: 'flex',
+				alignItems: 'center',
+				left: props.gameWidth*Math.random(),
+				top:0
+			}
 		};
     
-    window.requestAnimationFrame(this.tick);
+    raf(this.tick);
   }
 
   tick() {
-		const now = Date.now();
-		// progress: starts at 0, ends at > 1
-		const t = (now - this.startTime) / this.duration;
+		if (!this.state.hide) {
+			if(this.state.styles.top < this.state.endPos) {
+				this.setState(state => {
+					const now = Date.now();
+					// progress: starts at 0, ends at > 1
+					const t = (now - state.startTime) / state.duration;
 
-		// t: current time, b: begInnIng value, c: change In value, d: duration
-		this.setState((state) => ({
-			top: easingFn(state.top, t, this.startPos, this.endPos, this.duration)
-		}));
+					return {
+						styles: {
+							...state.styles,
+							// t: current time, b: begInnIng value, c: change In value, d: duration
+							top: easingFn(state.styles.top, t, state.startPos, state.endPos, state.duration)
+						}
+					};
+				});
 
-		if (this.state.top < this.endPos) {
-	  	requestAnimationFrame(this.tick);
-	  } else {
-	  	this.hide = true;
-	  	this.props.killMe(this.props.rsvp.rsvp_id);
-	  }
+		  	raf(this.tick);
+		  } else {
+		  	this.setState(state => ({
+			  	hide: true
+		  	}));
+		  	this.props.onTheFloor(this.state.rsvp.rsvp_id);
+		  }
+		}
 	}
 
+	componentWillUnmount() {
+		this.setState(() => ({
+			hide: true
+		}));
+	}
+
+	onHit() {
+		this.setState(() => ({
+			hide: true
+		}));
+		this.props.onHit(this.state.rsvp.rsvp_id);
+	}
+
+	onTheFloor() {}
+
 	render() {
-		if (this.hide) {
+		const { rsvp } = this.state;
+		const { response } = rsvp;
+
+		if (this.state.hide) {
 			return false;
 		}
-
-		const { rsvp } = this.props;
 
 		const classNames = cx(
 			'piece',
 			{
-				['going'] : rsvp.response === 'yes',
-				['not-going'] : rsvp.response === 'no',
-				['waitlist'] : rsvp.response === 'waitlist'
+				'going' : response === 'yes',
+				'not-going' : response === 'no',
+				'waitlist' : response === 'waitlist'
 			}
 		);
 
 		return (
-			<div className={classNames} style={this.state}>{rsvp.response}</div>
+			<div onClick={this.onHit} className={classNames} style={this.state.styles}>{response}</div>
 		);
 	}
 }

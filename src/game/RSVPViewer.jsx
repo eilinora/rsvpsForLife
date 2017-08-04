@@ -9,11 +9,14 @@ const RSVP = (rsvp, index) => {
 	if (!rsvp.member) {
 		return false
 	};
-	const classNames = cx({
-		['response going'] : rsvp.response === 'yes',
-		['response not-going'] : rsvp.response === 'no',
-		['response waitlist'] : rsvp.response === 'waitlist'
-	});
+	const classNames = cx(
+		'response',
+		{
+			'going' : rsvp.response === 'yes',
+			'not-going' : rsvp.response === 'no',
+			'waitlist' : rsvp.response === 'waitlist'
+		}
+	);
 	return (
 		<Chunk key={index}>
 			<Flex>

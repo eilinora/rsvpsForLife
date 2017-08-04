@@ -7606,6 +7606,10 @@ Breakpoints        | Property       | Variants
   .atLarge_border--none {
     border-width: 0 !important; } }
 
+#root {
+  max-height: 100vh;
+  overflow: hidden; }
+
 .board {
   position: relative;
   float: left;
@@ -7616,29 +7620,51 @@ Breakpoints        | Property       | Variants
   width: 150px;
   padding-right: 15px; }
 
+.text--white {
+  padding-left: 4px;
+  color: white; }
+
+.life-force {
+  position: absolute;
+  top: 10;
+  left: 10;
+  background-color: #7000b0;
+  border: 1px solid gray;
+  height: 10px; }
+
 .piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   border-radius: 50%;
+  font-weight: bold;
+  color: white;
   width: 100px;
-  height: 100px; }
+  height: 100px;
+  cursor: crosshair; }
   .piece.going {
-    background-color: green; }
+    background-color: #00d480; }
   .piece.not-going {
-    background-color: red; }
+    background-color: #f13a59; }
   .piece.waitlist {
-    background-color: waitlist; }
-
+    background-color: #f6f7f8; }
 
 .response {
   border-radius: 50%;
-  width: 25px;
-  height: 25px; }
+  width: 16px;
+  height: 16px; }
   .response.going {
-    background-color: green; }
+    background-color: #00d480; }
   .response.not-going {
-    background-color: red; }
+    background-color: #f13a59; }
   .response.waitlist {
-    background-color: waitlist; }
+    background-color: #f6f7f8; }
   .response svg {
     fill: white;
     color: white; }
+
+.rsvp-ticker {
+  position: absolute;
+  bottom: 0;
+  left: 20px; }

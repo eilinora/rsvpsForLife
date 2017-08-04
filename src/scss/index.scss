@@ -1,4 +1,10 @@
+
 @import 'mwc';
+
+#root {
+	max-height:100vh;
+	overflow:hidden;
+}
 
 .board {
 	position: relative;
@@ -17,13 +23,29 @@
 	color: $C_white;
 }
 
+.life-force {
+	position: absolute;
+	top: 10;
+	left: 10;
+	background-color: $C_plum;
+	border: 1px solid gray;
+	height: 10px;
+}
+
+$piece: 100px;
 .piece {
+	display:flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	border-radius: 50%;
-	width: 100px;
-	height: 100px;
+	font-weight: bold;
+	color: white;
+	width: $piece;
+	height: $piece;
+	cursor: crosshair;
 	&.going {
-		background-color: $C_green;
+		background-color: $C_teal;
 	}
 	&.not-going {
 		background-color: $C_red;
@@ -38,7 +60,7 @@
 	width: 16px;
 	height: 16px;
 	&.going {
-		background-color: $C_green;
+		background-color: $C_teal;
 	}
 	&.not-going {
 		background-color: $C_red;
@@ -50,4 +72,11 @@
 		fill: white;
 		color: white;
 	}
+}
+
+
+.rsvp-ticker {
+	position: absolute;
+	bottom: 0;
+	left: 20px;
 }
