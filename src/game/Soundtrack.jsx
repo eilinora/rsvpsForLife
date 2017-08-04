@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+	Monosynth,
 	Song,
 	Sequencer,
 	Synth
@@ -19,11 +20,13 @@ export default class Soundtrack extends Component {
 			return (
 				<Song tempo={this.props.tempo} playing={this.state.playing}>
 				  <Sequencer resolution={16} bars={1}>
-					<Synth
-					   type="sine"
+					<Monosynth
+					   gain = {0.1}
+					   glide = {0.5}
+					   type="square"
 					   steps={[
-						   [0, 8, 'c4'],
-						   [8, 4, 'd4'],
+						   [0, 9, 'c3'],
+						   [8, 8, 'd3'],
 					   ]}
 					   />
 				  </Sequencer>
