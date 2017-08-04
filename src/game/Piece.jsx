@@ -3,6 +3,22 @@ import cx from 'classnames';
 
 const durationMax = 80;
 const raf = window.requestAnimationFrame;
+const isCollide = (a, b) => {
+	// kick out if anything is undefined
+	if (!a || !b) {
+		return;
+	}
+
+  var aRect = a.getBoundingClientRect();
+  var bRect = b.getBoundingClientRect();
+
+  return !(
+    ((aRect.top + aRect.height) < (bRect.top)) ||
+    (aRect.top > (bRect.top + bRect.height)) ||
+    ((aRect.left + aRect.width) < bRect.left) ||
+    (aRect.left > (bRect.left + bRect.width))
+	);
+}
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
 const easingFn = function (x, t, b, c, d) {
@@ -10,20 +26,19 @@ const easingFn = function (x, t, b, c, d) {
 };
 
 export default class Piece extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.onHit = this.onHit.bind(this);
-    this.tick = this.tick.bind(this);
+		this.onHit = this.onHit.bind(this);
+		this.tick = this.tick.bind(this);
 
-    this.isActive = true;
+		this.isActive = true;
 		this.state = {
 			rsvp: props.rsvp,
 			startPos: 0,
 			endPos: 900,
 			duration: durationMax + Math.random()*20,
 			startTime: Date.now(),
-			hide: false,
 
 			styles: {
 				display: 'flex',
@@ -32,60 +47,56 @@ export default class Piece extends Component {
 				top:0
 			}
 		};
-    
-    raf(this.tick);
-  }
+		
+		raf(this.tick);
+	}
 
-  tick() {
-		if (!this.state.hide && this.isActive) {
-			if(this.state.styles.top < this.state.endPos) {
-				this.setState(state => {
-					const now = Date.now();
-					// progress: starts at 0, ends at > 1
-					const t = (now - state.startTime) / state.duration;
+	tick() {
+		if (this.isActive) {
+			const { character } = this.props;
+			const { rsvp } = this.state;
 
-					return {
-						styles: {
-							...state.styles,
-							// t: current time, b: begInnIng value, c: change In value, d: duration
-							top: easingFn(state.styles.top, t, state.startPos, state.endPos, state.duration)
-						}
-					};
-				});
+			if (isCollide(character.characterEl, this.gamePiece)) {
+				this.onHit();
+			} else {
+				if(this.state.styles.top < this.state.endPos) {
+					this.setState(state => {
+						const now = Date.now();
+						// progress: starts at 0, ends at > 1
+						const t = (now - state.startTime) / state.duration;
 
-		  	raf(this.tick);
-		  } else {
-		  	this.setState(state => ({
-			  	hide: true
-		  	}));
-		  	this.isActive = false;
-		  	this.props.onTheFloor(this.state.rsvp.rsvp_id);
-		  }
+						return {
+							styles: {
+								...state.styles,
+								// t: current time, b: begInnIng value, c: change In value, d: duration
+								top: easingFn(state.styles.top, t, state.startPos, state.endPos, state.duration)
+							}
+						};
+					});
+
+					raf(this.tick);
+				} else {
+					this.isActive = false;
+					// this.props.onTheFloor(rsvp.rsvp_id);
+				}
+			}
 		}
 	}
 
 	componentWillUnmount() {
 		this.isActive = false;
-		this.setState(() => ({
-			hide: true
-		}));
 	}
 
 	onHit() {
 		this.isActive = false;
-		this.setState(() => ({
-			hide: true
-		}));
-		this.props.onHit(this.state.rsvp.rsvp_id, this.state.rsvp.response);
+		this.props.onHit(this.state.rsvp.response);
 	}
-
-	onTheFloor() {}
 
 	render() {
 		const { rsvp } = this.state;
 		const { response } = rsvp;
 
-		if (this.state.hide) {
+		if (!this.isActive) {
 			return false;
 		}
 
@@ -99,7 +110,7 @@ export default class Piece extends Component {
 		);
 
 		return (
-			<div onClick={this.onHit} className={classNames} style={this.state.styles}>{response}</div>
+			<div onClick={this.onHit} className={classNames} style={this.state.styles} ref={c => this.gamePiece = c}>{response}</div>
 		);
 	}
 }

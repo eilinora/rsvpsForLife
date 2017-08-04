@@ -7613,7 +7613,7 @@ Breakpoints        | Property       | Variants
 .board {
   position: relative;
   float: left;
-  height: 100%; }
+  height: 100vh; }
 
 .rsvp-views {
   float: right;
@@ -7649,6 +7649,14 @@ Breakpoints        | Property       | Variants
     background-color: #f13a59; }
   .piece.waitlist {
     background-color: #f6f7f8; }
+
+.character {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 150px;
+  width: 50px;
+  background: #f00; }
 
 .response {
   border-radius: 50%;

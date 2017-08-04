@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Piece from './Piece';
+import Character from './Character';
 
 const raf = window.requestAnimationFrame;
 const gameBoardWidth = 900;
@@ -18,9 +19,9 @@ class GameBoard extends Component {
 			startTime: Date.now(),
 		};
 
+		this.tick = this.tick.bind(this);
 		this.onHit = this.onHit.bind(this);
 		this.onTheFloor = this.onTheFloor.bind(this);
-		this.tick = this.tick.bind(this);
 		this.onKillGame = this.onKillGame.bind(this);
 
 		raf(this.tick);
@@ -47,12 +48,13 @@ class GameBoard extends Component {
 		}
 	}
 
-	onHit(rsvp_id, response) {
+	onHit(response) {
 		if (response === 'yes') {
 			this.setState(state => ({
 				life: state.life + lifeBoost
 			}));
 		} else {
+			console.log('kill me!!!!');
 			this.onKillGame();
 		}
 	}
@@ -71,7 +73,7 @@ class GameBoard extends Component {
 
 		const pieces = rsvps.slice(0,50).map((rsvp, index) => {
 			return (
-				<Piece key={rsvp.rsvp_id} rsvp={rsvp} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} />
+				<Piece key={rsvp.rsvp_id} rsvp={rsvp} character={this.character} gameWidth={gameBoardWidth} onHit={this.onHit} onTheFloor={this.onTheFloor} />
 			)
 		});
 
@@ -79,6 +81,7 @@ class GameBoard extends Component {
 			<div className='board' style={{width:`${gameBoardWidth}px`}}>
 				<div className='life-force' style={{width:this.state.life}} />
 				<div>{pieces}</div>
+				<Character gameBoardWidth={gameBoardWidth} ref={c => this.character = c}/>
 			</div>
 		);
 	}

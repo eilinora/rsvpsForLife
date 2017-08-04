@@ -9,7 +9,7 @@
 .board {
 	position: relative;
 	float:left;
-	height:100%;
+	height:100vh;
 }
 
 .rsvp-views {
@@ -53,6 +53,15 @@ $piece: 100px;
 	&.waitlist {
 		background-color: $C_lightGray;
 	}
+}
+
+.character {
+	position:absolute;
+	left: 0;
+	bottom:0;
+	height: 150px;
+	width: 50px;
+	background: #f00;
 }
 
 .response {
